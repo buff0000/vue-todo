@@ -14,7 +14,7 @@
       :todo="item"
       @del="holdleDelItem"
     ></todo-item>
-    <todo-info></todo-info>
+    <todo-info :total="total"></todo-info>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
     return {
       content: "",
       todoData: [],
+      total: 0,
     };
   },
   methods: {
@@ -48,6 +49,16 @@ export default {
         this.todoData.findIndex((item) => item.id === id),
         1
       );
+    },
+  },
+  watch: {
+    todoData: {
+      deep: true,
+      handler() {
+        this.total = this.todoData.filter(
+          (item) => item.completed === false
+        ).length;
+      },
     },
   },
   components: {
