@@ -1,15 +1,40 @@
 <template>
   <div class="main-todo">
-    <input type="text" class="add-todo" placeholder="what to do?" autofocus />
-    <todo-item></todo-item>
+    <input
+      type="text"
+      class="add-todo"
+      placeholder="what to do?"
+      autofocus
+      @keyup.enter="addTodo"
+      v-model="content"
+    />
+    <todo-item v-for="(item, index) in todoData" :key="index" :todo="item"></todo-item>
   </div>
 </template>
 
 <script>
 import TodoItem from "./coms/TodoItem.vue";
-
+let id = 0;
 export default {
   name: "MainTodo",
+  data() {
+    return {
+      content: "",
+      todoData: [],
+    };
+  },
+  methods: {
+    addTodo() {
+      if (this.content === "") return;
+      this.todoData.unshift({
+        id: id++,
+        content: this.content,
+        completed: false,
+      });
+
+      this.content = "";
+    },
+  },
   components: {
     TodoItem,
   },
