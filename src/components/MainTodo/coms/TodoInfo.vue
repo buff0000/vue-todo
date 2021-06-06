@@ -10,7 +10,7 @@
         >{{ item }}</a
       >
     </div>
-    <button class="btn info">Clear completed</button>
+    <button class="btn info" @click="clearInfo()">Clear completed</button>
   </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
       toggleState(state){
         this.state = state
         this.$emit('toggleState',state)
+      },
+      clearInfo(){
+          this.$emit('clearInfo','')
       }
   }
 };

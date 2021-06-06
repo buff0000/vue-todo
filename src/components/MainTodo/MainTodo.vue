@@ -14,7 +14,11 @@
       :todo="item"
       @del="holdleDelItem"
     ></todo-item>
-    <todo-info :total="total" @toggleState="holderToggleState"></todo-info>
+    <todo-info
+      :total="total"
+      @toggleState="holderToggleState"
+      @clearInfo="holerClearInfo"
+    ></todo-info>
   </div>
 </template>
 
@@ -31,7 +35,7 @@ export default {
       content: "",
       todoData: [],
       total: 0,
-      filter: "all"
+      filter: "all",
     };
   },
   methods: {
@@ -52,7 +56,7 @@ export default {
       );
     },
     holderToggleState(state) {
-      this.filter = state
+      this.filter = state;
       // switch (state) {
       //   case "all": {
       //     return this.todoData;
@@ -69,6 +73,10 @@ export default {
       // }
       // alert(state);
     },
+    holerClearInfo(){
+      var s = this.todoData;
+      this.todoData = this.todoData.filter(item => item.completed ==  false)
+    }
   },
   computed: {
     filterData() {
