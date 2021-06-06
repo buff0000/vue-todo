@@ -2,7 +2,7 @@
   <div :class="['todo-item', todo.completed ? 'completed' : '']">
     <input type="checkbox" v-model="todo.completed" />
     <label>{{ todo.content }}</label>
-    <button></button>
+    <button @click="delItem"></button>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: "TodoItem",
   props: {
     todo: Object,
+  },
+  methods: {
+    delItem() {
+      this.$emit("del", this.todo.id);
+    },
   },
 };
 </script>

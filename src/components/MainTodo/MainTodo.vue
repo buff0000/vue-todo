@@ -8,7 +8,12 @@
       @keyup.enter="addTodo"
       v-model="content"
     />
-    <todo-item v-for="(item, index) in todoData" :key="index" :todo="item"></todo-item>
+    <todo-item
+      v-for="(item, index) in todoData"
+      :key="index"
+      :todo="item"
+      @del="holdleDelItem"
+    ></todo-item>
   </div>
 </template>
 
@@ -33,6 +38,12 @@ export default {
       });
 
       this.content = "";
+    },
+    holdleDelItem(id) {
+      this.todoData.splice(
+        this.todoData.findIndex(item => item.id === id),
+        1
+      );
     },
   },
   components: {
