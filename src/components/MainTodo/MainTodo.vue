@@ -9,12 +9,12 @@
       v-model="content"
     />
     <todo-item
-      v-for="(item, index) in todoData"
+      v-for="(item, index) in filterData"
       :key="index"
       :todo="item"
       @del="holdleDelItem"
     ></todo-item>
-    <todo-info :total="total"></todo-info>
+    <todo-info :total="total" @toggleState="holderToggleState"></todo-info>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default {
       content: "",
       todoData: [],
       total: 0,
+      filter: "all"
     };
   },
   methods: {
@@ -49,6 +50,39 @@ export default {
         this.todoData.findIndex((item) => item.id === id),
         1
       );
+    },
+    holderToggleState(state) {
+      this.filter = state
+      // switch (state) {
+      //   case "all": {
+      //     return this.todoData;
+      //     break;
+      //   }
+      //   case "active": {
+      //     return this.todoData.filter((item) => item.completed == false);
+      //     break;
+      //   }
+      //   case "completed": {
+      //     return this.todoData.filter((item) => item.completed == true);
+      //     break;
+      //   }
+      // }
+      // alert(state);
+    },
+  },
+  computed: {
+    filterData() {
+      switch (this.filter) {
+        case "all":
+          return this.todoData;
+          break;
+        case "active":
+          return this.todoData.filter((item) => item.completed == false);
+          break;
+        case "completed":
+          return this.todoData.filter((item) => item.completed == true);
+          break;
+      }
     },
   },
   watch: {

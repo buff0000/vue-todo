@@ -1,8 +1,14 @@
 <template>
   <div class="todo-info">
-    <span class="total">{{total}} item left</span>
+    <span class="total">{{ total }} item left</span>
     <div class="tabs">
-      <a class="btn primary border" v-for="(item, index) in status" :key="index">{{ item }}</a>
+      <a
+        :class="['btn','primary','border', item == state ? 'actived' : '']"
+        v-for="(item, index) in status"
+        :key="index"
+        @click="toggleState(item)"
+        >{{ item }}</a
+      >
     </div>
     <button class="btn info">Clear completed</button>
   </div>
@@ -11,14 +17,21 @@
 <script>
 export default {
   name: "TodoInfo",
-  props:{
-      total:Number
+  props: {
+    total: Number,
   },
   data() {
     return {
       status: ["all", "active", "completed"],
+      state: 'all'
     };
   },
+  methods:{
+      toggleState(state){
+        this.state = state
+        this.$emit('toggleState',state)
+      }
+  }
 };
 </script>
 
