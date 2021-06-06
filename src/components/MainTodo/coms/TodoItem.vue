@@ -1,6 +1,6 @@
 <template>
-  <div class="todo-item">
-    <input type="checkbox" />
+  <div :class="['todo-item', todo.completed ? 'completed' : '']">
+    <input type="checkbox" v-model="todo.completed" />
     <label>{{ todo.content }}</label>
     <button></button>
   </div>
