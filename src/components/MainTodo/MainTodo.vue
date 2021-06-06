@@ -14,12 +14,16 @@
       :todo="item"
       @del="holdleDelItem"
     ></todo-item>
+    <todo-info></todo-info>
   </div>
 </template>
 
 <script>
 import TodoItem from "./coms/TodoItem.vue";
+import TodoInfo from "./coms/TodoInfo.vue";
+
 let id = 0;
+
 export default {
   name: "MainTodo",
   data() {
@@ -41,13 +45,14 @@ export default {
     },
     holdleDelItem(id) {
       this.todoData.splice(
-        this.todoData.findIndex(item => item.id === id),
+        this.todoData.findIndex((item) => item.id === id),
         1
       );
     },
   },
   components: {
     TodoItem,
+    TodoInfo,
   },
 };
 </script>
